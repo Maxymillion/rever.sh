@@ -36,3 +36,5 @@ next-env.d.ts
 
 # tooling
 .idea
+.vscode
+.contentlayer
