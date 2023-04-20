@@ -1,4 +1,34 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import {defineDocumentType, makeSource} from 'contentlayer/source-files'
+import remarkGfm from 'remark-gfm';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+
+const computedFields = {
+    slug: {
+        type: 'string',
+        resolve: (doc) => doc._raw.flattenedPath,
+    },
+    structuredData: {
+        type: 'object',
+        resolve: (doc) => ({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: doc.title,
+            datePublished: doc.publishedAt,
+            dateModified: doc.publishedAt,
+            description: doc.summary,
+            image: doc.image
+                ? `https://www.rever.sh${doc.image}`
+                : `https://www.rever.sh/api/og?title=${doc.title}`,
+            url: `https://www.rever.sh/posts/${doc._raw.flattenedPath}`,
+            author: {
+                '@type': 'Person',
+                name: 'Max van Essen',
+            },
+        }),
+    },
+};
 
 const Post = defineDocumentType(() => ({
     name: 'Post',
@@ -10,21 +40,50 @@ const Post = defineDocumentType(() => ({
             description: 'The title of the post',
             required: true,
         },
-        date: {
-            type: 'date',
-            description: 'The date of the post',
+        summary: {
+            type: 'string',
+            required: true,
+        },
+        publishedAt: {
+            type: 'string',
             required: true,
         },
     },
-    computedFields: {
-        url: {
-            type: 'string',
-            resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
-        },
-    },
+    computedFields
 }))
 
 export default makeSource({
-    contentDirPath: 'posts',
+    contentDirPath: 'content',
     documentTypes: [Post],
+    mdx: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [
+            rehypeSlug,
+            [
+                rehypePrettyCode,
+                {
+                    theme: 'one-dark-pro',
+                    onVisitLine(node) {
+                        if (node.children.length === 0) {
+                            node.children = [{type: 'text', value: ' '}];
+                        }
+                    },
+                    onVisitHighlightedLine(node) {
+                        node.properties.className.push('line--highlighted');
+                    },
+                    onVisitHighlightedWord(node) {
+                        node.properties.className = ['word--highlighted'];
+                    },
+                },
+            ],
+            [
+                rehypeAutolinkHeadings,
+                {
+                    properties: {
+                        className: ['anchor'],
+                    },
+                },
+            ],
+        ],
+    }
 })

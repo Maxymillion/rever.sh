@@ -10,12 +10,12 @@ function PostCard(post: Post) {
     return (
         <div className="mb-8">
             <h2 className="text-xl">
-                <Link href={post.url} className="text-blue-700 hover:text-blue-900" legacyBehavior>
+                <Link href={`/posts/${post.slug}`} className="text-blue-700 hover:text-blue-900" legacyBehavior>
                     {post.title}
                 </Link>
             </h2>
-            <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
-                {format(parseISO(post.date), 'LLLL d, yyyy')}
+            <time dateTime={post.publishedAt} className="block mb-2 text-xs text-gray-600">
+                {format(parseISO(post.publishedAt), 'LLLL d, yyyy')}
             </time>
             <div className="text-sm">
                 <Content />
@@ -25,7 +25,7 @@ function PostCard(post: Post) {
 }
 
 export default function Home() {
-    const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    const posts = allPosts.sort((a, b) => compareDesc(new Date(a.publishedAt), new Date(b.publishedAt)))
 
     return (
         <div className="py-8 mx-auto max-w-xl">
