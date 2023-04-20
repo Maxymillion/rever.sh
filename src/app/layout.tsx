@@ -3,8 +3,8 @@ import {Metadata} from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: 'Rever.sh',
-    template: '%s | Rever.sh',
+    default: 'rever.sh',
+    template: '%s | rever.sh',
   },
   description:
       'Soonish',
