@@ -53,6 +53,7 @@ const Post = defineDocumentType(() => ({
 }))
 
 export default makeSource({
+    disableImportAliasWarning: true,
     contentDirPath: 'content',
     documentTypes: [Post],
     mdx: {
@@ -62,7 +63,7 @@ export default makeSource({
             [
                 rehypePrettyCode,
                 {
-                    theme: 'one-dark-pro',
+                    theme: 'slack-dark',
                     onVisitLine(node) {
                         if (node.children.length === 0) {
                             node.children = [{type: 'text', value: ' '}];
