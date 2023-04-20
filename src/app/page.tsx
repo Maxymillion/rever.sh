@@ -7,7 +7,7 @@ function PostCard(post: Post) {
     return (
         <div className="mb-8">
             <h2 className="text-xl">
-                <Link href={`/posts/${post.slug}`} className="text-blue-700 hover:text-blue-900" legacyBehavior>
+                <Link href={post.slug} className="text-blue-700 hover:text-blue-900" legacyBehavior>
                     {post.title}
                 </Link>
             </h2>
