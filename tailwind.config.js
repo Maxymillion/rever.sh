@@ -8,6 +8,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        head: ['var(--font-rso)'],
+        write: ['var(--font-write)'],
+      },
+      colors: {
+        'base' : {
+          'body': '#404040',
+          'heading': '#171717'
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

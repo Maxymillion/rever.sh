@@ -1,0 +1,23 @@
+.article {
+  @apply prose prose-slate mx-auto max-w-2xl py-8 selection:bg-teal-300/80;
+
+  &__heading {
+    @apply relative;
+
+    &__bar {
+      @apply mt-2 mb-4 absolute -translate-x-full -ml-10 text-base-body/80 text-right font-mono text-sm italic tracking-tight;
+
+      p{
+        @apply mt-1.5 mb-0;
+      }
+    }
+
+    h1 {
+      @apply text-[2.75rem] font-head tracking-wide;
+    }
+  }
+
+  blockquote {
+    quotes: none;
+  }
+}

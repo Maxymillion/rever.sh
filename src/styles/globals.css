@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,10 +24,4 @@ h2 {
 
 body{
   @apply bg-zinc-50;
-}
-
-pre{
-  @apply bg-slate-800;
-  @apply p-4;
-  @apply rounded-md;
 }

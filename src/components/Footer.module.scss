@@ -1,0 +1,12 @@
+.footer {
+  @apply border-t border-slate-300;
+  &__container {
+    @apply py-8 mx-auto max-w-2xl;
+    p {
+      @apply text-sm text-slate-400;
+      span {
+        @apply text-pink-300;
+      }
+    }
+  }
+}
